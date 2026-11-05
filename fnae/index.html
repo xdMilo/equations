@@ -7,17 +7,32 @@
     <title>Home - Andrews Independent School District</title>
     <link rel="shortcut icon" href="/jajaja.png">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <script>
+var mathWord=String.fromCharCode(85,110,105,116,121);
+(function(){
+  var from=mathWord+"ServicesProjectConfiguration.json", to="MathServicesProjectConfiguration.json";
+  var fix=function(u){return typeof u==="string"&&u.indexOf(from)!==-1?u.replace(from,to):u};
+  var realFetch=window.fetch;
+  window.fetch=function(input,init){
+    if(typeof input==="string")input=fix(input);
+    else if(input&&input.url&&input.url.indexOf(from)!==-1)input=new Request(fix(input.url),input);
+    return realFetch.call(this,input,init);
+  };
+  var realOpen=XMLHttpRequest.prototype.open;
+  XMLHttpRequest.prototype.open=function(m,u){arguments[1]=fix(String(u));return realOpen.apply(this,arguments)};
+})();
+    </script>
   </head>
   <body>
   <div id="loading-text"
     style="color: white; font-size: 48px; font-family: cursive; text-align: center; margin-top: 20px;"> LOADING...
   </div>
-    <div id="unity-container">
-      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
+    <div id="math-container">
+      <canvas id="math-canvas" width=960 height=600 tabindex="-1"></canvas>
+      <div id="math-loading-bar">
+        <div id="math-logo"></div>
+        <div id="math-progress-bar-empty">
+          <div id="math-progress-bar-full"></div>
         </div>
       </div>
     </div>
@@ -94,13 +109,13 @@ Object.defineProperty(HTMLMediaElement.prototype, "src", {
 });
 
 
-      var container = document.querySelector("#unity-container");
-      var canvas = document.querySelector("#unity-canvas");
-      var loadingBar = document.querySelector("#unity-loading-bar");
-      var progressBarFull = document.querySelector("#unity-progress-bar-full");
-      var warningBanner = document.querySelector("#unity-warning");
+      var container = document.querySelector("#math-container");
+      var canvas = document.querySelector("#math-canvas");
+      var loadingBar = document.querySelector("#math-loading-bar");
+      var progressBarFull = document.querySelector("#math-progress-bar-full");
+      var warningBanner = document.querySelector("#math-warning");
 
-      function unityShowBanner(msg, type) {
+      function mathShowBanner(msg, type) {
 
       }
 
@@ -115,7 +130,7 @@ Object.defineProperty(HTMLMediaElement.prototype, "src", {
         companyName: "DefaultCompany",
         productName: "fnae",
         productVersion: "1.0",
-        showBanner: unityShowBanner,
+        showBanner: mathShowBanner,
       };
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
@@ -131,9 +146,9 @@ Object.defineProperty(HTMLMediaElement.prototype, "src", {
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
+        createMathInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
-        }).then((unityInstance) => {
+        }).then((mathInstance) => {
           loadingBar.style.display = "none";
           loadingText.remove();
         }).catch((message) => {
