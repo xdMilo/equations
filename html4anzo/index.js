@@ -53274,7 +53274,7 @@ var _W = {
 			_Sl: 1,
 			_Tl: !0,
 			_Ul: !0,
-			_Vl: "/", //html4anzo
+			_Vl: "html4anzo", //html4anzo
 			_Wl: "Default",
 			_Xl: 0,
 			_Yl: !1,
@@ -183779,7 +183779,7 @@ function _ug5() {
 	_pe5[13] = 0;
 	_pe5[14] = 0xffffffff;
 	_Rm3 = "canvas";
-	_Q03 = "/";//html4anzo
+	_Q03 = "html4anzo";//html4anzo
 	if (typeof (g_GameMakerHTML5Dir) != "undefined") {
 			_Q03 = g_GameMakerHTML5Dir
 	} else {
